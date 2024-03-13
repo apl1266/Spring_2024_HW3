@@ -54,8 +54,8 @@ fruits_train_x,fruits_train_y,fruits_test_x,fruits_test_y= frames("fruits_data.c
 phones_train_x,phones_train_y,phones_test_x,phones_test_y= frames("phones_data.csv",0)
 
 
-
-if 0:
+t=time.time()
+if 1:
     #part_1 runner
     a_0,b_0=part_1(fruits_train_x,fruits_train_y,"Fruits dataset",method="KMeans")
     a_1,b_1=part_1(fruits_train_x,fruits_train_y,"Fruits dataset",method="EM")
@@ -76,7 +76,7 @@ if 0:
     KMeans(n_clusters=17, max_iter=2000, random_state=812, n_init=10).fit(phones_train_x)
     print(time.time() - t0, " seconds to run KMEANS on Phones data set")
 
-if 0:
+if 1:
     # part_2 runner
     PCA_F=part_2(fruits_train_x,"Fruits dataset","PCA")
     ICA_F = part_2(fruits_train_x, "Fruits dataset", "ICA")
@@ -92,7 +92,7 @@ if 0:
 
     part_2_timer(fruits_train_x, phones_train_x)
 
-if 0:
+if 1:
     # part_3 runner
     for dataset in (("Fruits",fruits_train_x,fruits_train_y),("Phones",phones_train_x,phones_train_y)):
         for method in ("KMeans", "EM"):
@@ -100,6 +100,11 @@ if 0:
                 part_3(dataset,method,reduction)
 
 if 1:
-    part_3(("Fruits",fruits_train_x,fruits_train_y),0.2)
+    # part_4 runner
+    part_4(("Fruits",fruits_train_x,fruits_train_y),0.2)
 
-
+if 1:
+    # part_5 runner
+    part_5(("Fruits",fruits_train_x,fruits_train_y),0.2)
+print("---------")
+print(time.time()-t," seconds to run whole assignment on 8 logical cores CPU")

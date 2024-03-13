@@ -77,7 +77,7 @@ def part_2(train_x,dataset,type_red):
     return x,y
 
 def part_2_timer(fruits,phones):
-    print("part_2 ------------")
+    print("Part_2 ------------")
     t=time.time()
     PCA(n_components=20, random_state=812).fit_transform(fruits)
     print(time.time()-t, " seconds to run PCA transformation on Fruits database")
@@ -147,11 +147,11 @@ def part_3(dataset,method,reduction):
             kmeans_clus = GaussianMixture(n_components=i, max_iter=100, random_state=44, n_init=5).fit(train_x)
             Homogeneity.append(homogeneity_score(train_y, kmeans_clus.predict(train_x)))
             Silhouette.append(silhouette_score(train_x, kmeans_clus.predict(train_x), metric='euclidean'))
-
+    print("Part 3")
     print(time.time()-t," seconds for part_3 "+dataset[0]+" dataset "+method+" method "+ reduction+" dimencity reduction method" )
     part_3_plotter(n_clus,SE,Homogeneity,Silhouette,dataset[0],method,reduction)
 
-def part_3(dat,split):
+def part_4(dat,split):
     splitter=int(len(dat))-int(len(dat)*split//1)
     splitter=int((1-split)*np.shape(dat[1])[0])
     Train_x,Test_x,Train_y,Test_Y=dat[1][:splitter,:],dat[1][splitter:,:],dat[2].flatten()[:splitter],dat[2].flatten()[splitter:]
@@ -163,6 +163,7 @@ def part_3(dat,split):
     t=time.time()
     Classifier.fit(Train_x,Train_y)
     print(time.time()-t,"seconds to train vanilla NN on "+dat[0]+" dataset")
+    print("Part 4 ------------------")
     print("-------")
     print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
     print("-------")
@@ -175,6 +176,7 @@ def part_3(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
+    print("Part 4 ------------------")
     print(time.time() - t, "seconds to train PCA NN on " + dat[0] + " dataset")
     print("-------")
     print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
@@ -188,6 +190,7 @@ def part_3(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
+    print("Part 4 ------------------")
     print(time.time() - t, "seconds to train ICA NN on " + dat[0] + " dataset")
     print("-------")
     print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
@@ -201,6 +204,7 @@ def part_3(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
+    print("Part 4 ------------------")
     print(time.time() - t, "seconds to train RP NN on " + dat[0] + " dataset")
     print("-------")
     print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
@@ -214,7 +218,41 @@ def part_3(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
+    print("Part 4 ------------------")
     print(time.time() - t, "seconds to train LLE NN on " + dat[0] + " dataset")
     print("-------")
     print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
     print("-------")
+
+def part_5(dat,split):
+    splitter = int((1 - split) * np.shape(dat[1])[0])
+    for reduction in ("Vanila","PCA","ICA","RP","LLE"):
+        if reduction=="Vanila":
+            pca=dat[1]
+        if reduction=="PCA":
+            pca = PCA(n_components=20, random_state=812).fit_transform(dat[1])
+        if reduction == "ICA":
+            pca = FastICA(n_components=20, random_state=812).fit_transform(dat[1])
+        if reduction=="RP":
+            pca = GaussianRandomProjection(n_components=29, random_state=812).fit_transform(dat[1])
+        if reduction=="LLE":
+            pca = LLE(n_components=20, random_state=812).fit_transform(dat[1])
+        for method in ("KMeans","EM"):
+            if method=="KMeans":
+                kmeans_clus = KMeans(n_clusters=7, max_iter=2000, random_state=812, n_init=10).fit(pca)
+                pca_labels = kmeans_clus.labels_
+            else:
+                kmeans_clus = GaussianMixture(n_components=7, max_iter=100, random_state=44, n_init=5).fit(pca)
+                pca_labels=kmeans_clus.predict(pca)
+            Train_x,Test_x,Train_y,Test_Y=pca[:splitter,:],pca[splitter:,:],pca_labels[:splitter],pca_labels[splitter:]
+            Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
+            a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
+            part_5_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1),dat[0], reduction,method)
+            Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
+            t = time.time()
+            Classifier.fit(Train_x, Train_y)
+            print("Part 5 -----------------")
+            print(time.time() - t, "seconds to train "+reduction+" "+method+" NN on " + dat[0] + " dataset")
+            print("-------")
+            print(sklearn.metrics.classification_report(Test_Y, Classifier.predict(Test_x), digits=4))
+            print("-------")

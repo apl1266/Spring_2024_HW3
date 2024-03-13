@@ -127,3 +127,13 @@ def part_4_plotter(x,train_score,test_score, dataset,method):
     plt.legend()
     plt.savefig("part_4_"+dataset+"_set_"+method+"_method_NN_learning_curve.png")
     plt.clf()
+
+def part_5_plotter(x,train_score,test_score, dataset,reduction,method):
+    plt.plot(x, train_score, "-o", label="Train sample")
+    plt.plot(x, test_score, "-o", label="Validation sample")
+    plt.xlabel("learning sample size")
+    plt.ylabel("f score")
+    plt.title(dataset+" "+reduction+" "+method+" learning curve")
+    plt.legend()
+    plt.savefig("part_5_"+dataset+"_set_"+reduction+"_"+method+"_method_NN_learning_curve.png")
+    plt.clf()
