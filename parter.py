@@ -144,7 +144,7 @@ def part_3(dataset,method,reduction):
             Homogeneity.append(homogeneity_score(train_y, kmeans_clus.labels_))
             Silhouette.append(silhouette_score(train_x, kmeans_clus.labels_, metric='euclidean'))
         else:
-            kmeans_clus = GaussianMixture(n_components=i, max_iter=100, random_state=44, n_init=5).fit(train_x)
+            kmeans_clus = GaussianMixture(n_components=i, max_iter=100, random_state=812, n_init=5).fit(train_x)
             Homogeneity.append(homogeneity_score(train_y, kmeans_clus.predict(train_x)))
             Silhouette.append(silhouette_score(train_x, kmeans_clus.predict(train_x), metric='euclidean'))
     print("Part 3")
@@ -242,7 +242,7 @@ def part_5(dat,split):
                 kmeans_clus = KMeans(n_clusters=7, max_iter=2000, random_state=812, n_init=10).fit(pca)
                 pca_labels = kmeans_clus.labels_
             else:
-                kmeans_clus = GaussianMixture(n_components=7, max_iter=100, random_state=44, n_init=5).fit(pca)
+                kmeans_clus = GaussianMixture(n_components=7, max_iter=100, random_state=812, n_init=5).fit(pca)
                 pca_labels=kmeans_clus.predict(pca)
             Train_x,Test_x,Train_y,Test_Y=pca[:splitter,:],pca[splitter:,:],pca_labels[:splitter],pca_labels[splitter:]
             Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
