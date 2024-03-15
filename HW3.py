@@ -81,12 +81,12 @@ if 1:
     PCA_F=part_2(fruits_train_x,"Fruits dataset","PCA")
     ICA_F = part_2(fruits_train_x, "Fruits dataset", "ICA")
     RP_F = part_2(fruits_train_x, "Fruits dataset", "RP")
-    LLE_F = part_2(fruits_train_x, "Fruits dataset", "LLE")
+    LLE_F = part_2(fruits_train_x, "Fruits dataset", "MLLE")
 
     PCA_P = part_2(phones_train_x, "Phones dataset", "PCA")
     ICA_P = part_2(phones_train_x, "Phones dataset", "ICA")
     RP_P = part_2(phones_train_x, "Phones dataset", "RP")
-    LLE_P = part_2(phones_train_x, "Phones dataset", "LLE")
+    LLE_P = part_2(phones_train_x, "Phones dataset", "MLLE")
 
     part_2_plot((PCA_F,ICA_F,RP_F,LLE_F,PCA_P,ICA_P,RP_P,LLE_P),"part_2.png")
 
@@ -96,7 +96,7 @@ if 1:
     # part_3 runner
     for dataset in (("Fruits",fruits_train_x,fruits_train_y),("Phones",phones_train_x,phones_train_y)):
         for method in ("KMeans", "EM"):
-            for reduction in ("PCA", "ICA","RP","LLE"):
+            for reduction in ("PCA", "ICA","RP","MLLE"):
                 part_3(dataset,method,reduction)
 
 if 1:

@@ -44,7 +44,7 @@ def plotter_23(dat,file_name):
     plt.savefig(file_name)
     plt.clf()
 
-def part_2_plot(data, file_name,label=("PCA","ICA","RP","LLE")):
+def part_2_plot(data, file_name,label=("PCA","ICA","RP","MLLE")):
     plt.figure(figsize=(10,6))
     plt.subplot(2,2,1)
     for i in range(4):
