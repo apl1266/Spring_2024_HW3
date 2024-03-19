@@ -248,10 +248,10 @@ def part_5(dat,split):
             pca = LLE(n_components=20, random_state=812,method = 'modified',n_neighbors=50).fit_transform(dat[1])
         for method in ("KMeans","EM"):
             if method=="KMeans":
-                kmeans_clus = KMeans(n_clusters=7, max_iter=2000, random_state=812, n_init=10).fit(pca)
+                kmeans_clus = KMeans(n_clusters=10, max_iter=2000, random_state=812, n_init=10).fit(pca)
                 pca_labels = kmeans_clus.labels_
             else:
-                kmeans_clus = GaussianMixture(n_components=7, max_iter=100, random_state=812, n_init=5).fit(pca)
+                kmeans_clus = GaussianMixture(n_components=10, max_iter=100, random_state=812, n_init=5).fit(pca)
                 pca_labels=kmeans_clus.predict(pca)
             Train_x,Test_x,Train_y,Test_Y=pca[:splitter,:],pca[splitter:,:],pca_labels[:splitter],pca_labels[splitter:]
             Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
