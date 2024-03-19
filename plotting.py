@@ -114,7 +114,7 @@ def part_3_plotter(n_clus,SE,Homogeneity,Silhouette,dataset,method,reduction):
 
     plt.tight_layout()
 
-    plt.suptitle(method+" clustering "+reduction+" dim reduction on"+dataset+" dataset")
+    plt.suptitle(method+" clustering "+reduction+" dim reduction on "+dataset+" dataset")
     plt.savefig("part_3_"+dataset+"_set_"+method+"_method_"+reduction+"_dim_reduction.png")
     plt.clf()
 
