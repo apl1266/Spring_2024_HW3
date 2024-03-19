@@ -63,7 +63,7 @@ if 1:
     a_3,b_3=part_1(phones_train_x,phones_train_y,"Phones dataset",method="EM")
     plotter_23((a_0,b_0,b_1,a_2,b_2,b_3),"part_1.png")
     t0=time.time()
-    KMeans(n_clusters=10, max_iter=2000, random_state=812, n_init=10).fit(fruits_train_x)
+    KMeans(n_clusters=11, max_iter=2000, random_state=812, n_init=10).fit(fruits_train_x)
     print(time.time()-t0," seconds to run KMEANS on FRUITS data set")
     t0 = time.time()
     KMeans(n_clusters=4, max_iter=2000, random_state=812, n_init=10).fit(phones_train_x)
