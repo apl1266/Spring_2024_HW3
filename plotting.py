@@ -119,6 +119,7 @@ def part_3_plotter(n_clus,SE,Homogeneity,Silhouette,dataset,method,reduction):
     plt.clf()
 
 def part_4_plotter(x,train_score,test_score, dataset,method):
+    plt.figure(figsize=(6, 4))
     plt.plot(x, train_score, "-o", label="Train sample")
     plt.plot(x, test_score, "-o", label="Validation sample")
     plt.xlabel("learning sample size")
@@ -130,6 +131,7 @@ def part_4_plotter(x,train_score,test_score, dataset,method):
     plt.clf()
 
 def part_5_plotter(x,train_score,test_score, dataset,reduction,method):
+    plt.figure(figsize=(6, 4))
     plt.plot(x, train_score, "-o", label="Train sample")
     plt.plot(x, test_score, "-o", label="Validation sample")
     plt.xlabel("learning sample size")
