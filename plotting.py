@@ -92,7 +92,7 @@ def part_2_plot(data, file_name,label=("PCA","ICA","RP","MLLE")):
 
 def part_3_plotter(n_clus,SE,Homogeneity,Silhouette,dataset,method,reduction):
     if method=="KMeans":
-        plt.figure(figsize=(12, 6))
+        plt.figure(figsize=(8, 4))
         plt.subplot(1, 2, 1)
         plt.plot(n_clus, SE, "-o", label="SE")
         plt.xlabel("number of clusters")
