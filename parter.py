@@ -167,7 +167,7 @@ def part_4(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
 
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25,1,20), scoring='f1_weighted',n_jobs=-1)
-    part_4_plotter(len(Test_x)*np.linspace(0.25,1,20),train_score.mean(axis=1), test_score.mean(axis=1),dat[0],"")
+    part_4_plotter(len(Train_x)*np.linspace(0.25,1,20),train_score.mean(axis=1), test_score.mean(axis=1),dat[0],"")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t=time.time()
     Classifier.fit(Train_x,Train_y)
@@ -181,7 +181,7 @@ def part_4(dat,split):
     pca=PCA(n_components=20, random_state=812).fit_transform(dat[1])
     Train_x, Test_x, Train_y, Test_Y = pca[:splitter, :], pca[splitter:, :], dat[2].flatten()[:splitter], dat[2].flatten()[splitter:]
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
-    part_4_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"PCA")
+    part_4_plotter(len(Train_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"PCA")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
@@ -195,7 +195,7 @@ def part_4(dat,split):
     pca = FastICA(n_components=20, random_state=812).fit_transform(dat[1])
     Train_x, Test_x, Train_y, Test_Y = pca[:splitter, :], pca[splitter:, :], dat[2].flatten()[:splitter], dat[2].flatten()[splitter:]
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
-    part_4_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"ICA")
+    part_4_plotter(len(Train_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"ICA")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
@@ -209,7 +209,7 @@ def part_4(dat,split):
     pca = GaussianRandomProjection(n_components=29, random_state=812).fit_transform(dat[1])
     Train_x, Test_x, Train_y, Test_Y = pca[:splitter, :], pca[splitter:, :], dat[2].flatten()[:splitter], dat[2].flatten()[splitter:]
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
-    part_4_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"RP")
+    part_4_plotter(len(Train_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"RP")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
@@ -223,7 +223,7 @@ def part_4(dat,split):
     pca = LLE(n_components=20, random_state=812,method = 'modified',n_neighbors=50).fit_transform(dat[1])
     Train_x, Test_x, Train_y, Test_Y = pca[:splitter, :], pca[splitter:, :], dat[2].flatten()[:splitter], dat[2].flatten()[splitter:]
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
-    part_4_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"MLLE")
+    part_4_plotter(len(Train_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1), dat[0],"MLLE")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t = time.time()
     Classifier.fit(Train_x, Train_y)
@@ -256,7 +256,7 @@ def part_5(dat,split):
             Train_x,Test_x,Train_y,Test_Y=pca[:splitter,:],pca[splitter:,:],pca_labels[:splitter],pca_labels[splitter:]
             Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
             a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25, 1, 20),scoring='f1_weighted', n_jobs=-1)
-            part_5_plotter(len(Test_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1),dat[0], reduction,method)
+            part_5_plotter(len(Train_x) * np.linspace(0.25, 1, 20), train_score.mean(axis=1), test_score.mean(axis=1),dat[0], reduction,method)
             Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu',learning_rate="constant", learning_rate_init=0.01, random_state=812)
             t = time.time()
             Classifier.fit(Train_x, Train_y)
