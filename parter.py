@@ -167,7 +167,7 @@ def part_4(dat,split):
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
 
     a, train_score, test_score = sklearn.model_selection.learning_curve(Classifier, Train_x, Train_y,train_sizes=np.linspace(0.25,1,20), scoring='f1_weighted',n_jobs=-1)
-    part_4_plotter(len(Train_x)*np.linspace(0.25,1,20),train_score.mean(axis=1), test_score.mean(axis=1),dat[0],"")
+    part_4_plotter(len(Train_x)*np.linspace(0.25,1,20),train_score.mean(axis=1), test_score.mean(axis=1),dat[0],"untransformed")
     Classifier = MLPClassifier(tol=0.005, hidden_layer_sizes=[25, 25], activation='relu', learning_rate="constant",learning_rate_init=0.01, random_state=812)
     t=time.time()
     Classifier.fit(Train_x,Train_y)
@@ -235,8 +235,8 @@ def part_4(dat,split):
 
 def part_5(dat,split):
     splitter = int((1 - split) * np.shape(dat[1])[0])
-    for reduction in ("Vanila","PCA","ICA","RP","MLLE"):
-        if reduction=="Vanila":
+    for reduction in ("untransformed","PCA","ICA","RP","MLLE"):
+        if reduction=="untransformed":
             pca=dat[1]
         if reduction=="PCA":
             pca = PCA(n_components=20, random_state=812).fit_transform(dat[1])
